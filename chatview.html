@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messenger-like Chat UI</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .chat-container {
+      height: 96vh;
+      padding: 4px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background-color: #007bff;
+      color: #fff;
+      padding: 12px;
+      padding-left: 20px;
+      font-weight: bold;
+    }
+
+    .chat-header span{
+      margin-left: 20px;
+    }
+
+    .chat-body {
+      overflow-y: auto;
+      height: 80vh;
+    }
+
+    .message-container {
+      display: flex;
+    }
+
+    .message-container.sent {
+      justify-content: flex-end;
+    }
+
+    .message-container.received {
+      justify-content: flex-start;
+    }
+
+    .message {
+      padding: 10px;
+      margin: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .message.sent {
+      background-color: #007bff;
+      color: #fff;
+      margin-left: 50px;
+    }
+
+    .message.received {
+      background-color: #e9ecef;
+      margin-right: 50px;
+    }
+
+    .message-input {
+      padding: 10px;
+      border-top: 1px solid #ddd;
+      background-color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="chat-container">
+      <div class="chat-header">
+        <img  src="https://akmwebstatic.yuanzhanapp.com/web/madmin/image_a3dd4a2b8bd5b8f25a8dd520f2c1c71a.png" class="rounded-circle" style="width: 30px;" alt="chou">
+     <span>Ko Zaw Zaw</span>
+      </div>
+      <div class="chat-body " id="chatBody">
+        <!-- Chat messages will be dynamically added here -->
+        
+      </div>
+      <div class="message-input">
+        <div class="input-group">
+          <input type="text" class="form-control" id="messageInput" placeholder="Type your message...">
+          <div class="input-group-append">
+            <button class="btn btn-primary" onclick="sendMessage(messageInput.value)">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+      function sendMessage(message) {
+        //alert(message)
+        var messageInput = document.getElementById('messageInput');
+        var chatBody = document.getElementById('chatBody');
+
+        var message = messageInput.value.trim();
+        if (message !== '') {
+          var messageElement = document.createElement('div');
+          messageElement.innerHTML = `
+      <div class="message-container sent">
+        <div class="message sent">
+         ${message}
+         <div class="text-right">
+          <span style="color:black;font-size:12px"> 04:30 PM </span>
+        </div>
+        </div>
+      </div>
+      `
+          chatBody.appendChild(messageElement);
+
+          // Clear the input field
+          messageInput.value = '';
+
+          // Simulate a received message after a short delay
+          setTimeout(function () {
+            var messageElement = document.createElement('div');
+            messageElement.innerHTML = `
+        <div class="message-container received">
+        <div class="message received">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque, exercitationem neque molestias eum iusto amet similique quaerat a ipsum? Explicabo, id iusto laborum repellendus esse doloremque accusantium aliquam similique quam?
+          <div class="text-right">
+          <span class="text-primary" style="font-size:12px"> 04:30 PM </span>
+        </div>
+          </div>
+      </div>
+        `
+            chatBody.appendChild(messageElement);
+
+            // Scroll to the bottom of the chat container
+            chatBody.scrollTop = chatBody.scrollHeight;
+          }, 500);
+        }
+      }
+    </script>
+
+</body>
+
+</html>

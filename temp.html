@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messenger-like Chat UI</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .chat-container {
+      max-width: 600px;
+      margin: 50px auto;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .chat-body {
+      overflow-y: auto;
+      height: 300px;
+    }
+
+    .message {
+      padding: 10px;
+      margin: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .message.sent {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .message.received {
+      background-color: #e9ecef;
+    }
+
+    .message-input {
+      padding: 10px;
+      border-top: 1px solid #ddd;
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="chat-container">
+    <div class="chat-header">Messenger Chat</div>
+    <div class="chat-body" id="chatBody">
+      <!-- Chat messages will be dynamically added here -->
+    </div>
+    <div class="message-input">
+      <div class="input-group">
+        <input type="text" class="form-control" id="messageInput" placeholder="Type your message...">
+        <div class="input-group-append">
+          <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+  function sendMessage() {
+    var messageInput = document.getElementById('messageInput');
+    var chatBody = document.getElementById('chatBody');
+
+    var message = messageInput.value.trim();
+    if (message !== '') {
+      var messageElement = document.createElement('div');
+      messageElement.classList.add('message', 'sent');
+      messageElement.innerText = message;
+
+      chatBody.appendChild(messageElement);
+
+      // Clear the input field
+      messageInput.value = '';
+
+      // Simulate a received message after a short delay
+      setTimeout(function () {
+        var receivedMessage = document.createElement('div');
+        receivedMessage.classList.add('message', 'received');
+        receivedMessage.innerText = 'This is a received message.';
+        chatBody.appendChild(receivedMessage);
+
+        // Scroll to the bottom of the chat container
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 500);
+    }
+  }
+</script>
+
+</body>
+</html>
